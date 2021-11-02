@@ -16,9 +16,23 @@ inputEl.addEventListener("keyup", (e) => {
       inputEl.value = "";
       message.textContent = "Введен неверный символ";
     } else {
-      console.log(typeof inputEl.value);
       inputNumbers.push(parseFloat(inputEl.value));
-      inputNum.textContent = inputNumbers;
+      let numString = "";
+      if (inputNumbers.length === 1) {
+        numString += inputNumbers[0];
+      } else {
+        for (let i = 0; i < inputNumbers.length; i++) {
+          if (i === inputNumbers.length - 1) {
+            numString += ` ${inputNumbers[i]}`;
+          } else {
+            numString += ` ${inputNumbers[i]},`;
+          }
+        }
+      }
+      if (inputNumbers.length > 50) {
+        inputNum.classList.add("small-text");
+      }
+      inputNum.textContent = numString;
       inputEl.value = "";
       sumEl.textContent = inputNumbers.reduce(reducer);
     }
@@ -28,5 +42,6 @@ inputEl.addEventListener("keyup", (e) => {
 resetBtn.addEventListener("click", () => {
   inputNumbers = [];
   inputNum.textContent = inputNumbers;
+  inputNum.classList.remove("small-text");
   sumEl.textContent = "";
 });
